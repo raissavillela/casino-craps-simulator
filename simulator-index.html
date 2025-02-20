@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>CRAPS</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="craps-script.js"></script>
+  </head>
+  <body>
+    <div style="text-align: center; margin: auto; width: 800px;">
+      <h1>CRAPS</h1>
+      <form name="craps" method="post">
+        <table border="1" width="100%" style="text-align: center; table-layout: fixed;">
+          <tbody>
+            <tr>
+              <th colspan="8" style="padding: 5px;">BETS</th>
+            </tr>
+            <tr>
+              <td colspan="4">
+                Starting Bankroll: $ 
+                <input type="text" name="bankroll_start" id="bankroll_start" value="300" size="5">
+              </td> 
+              <td colspan="4">
+                <input type="checkbox" name="bankset_depleted" id="bankset_depleted" value="1">
+                Stop when bankroll is depleted
+                <br>
+                <input type="checkbox" name="bankset_max" id="bankset_max" value="1">
+                Walk away when reaches $
+                <input type="text" name="bankroll_walk" id="bankroll_walk" value="0" size="5">
+              </td> 
+            </tr>
+            <tr>
+              <th colspan="8" style="padding: 5px;">SELECT BET TYPE AND AMOUNT</th>
+            </tr>
+            <tr>
+              <td colspan="4">
+                <input type="checkbox" name="bet_type" value="Pass Line" id="pass_line"> 
+                <label for="pass_line">Pass Line: $</label>
+                <input type="text" name="pass_line_bet_amount" id="pass_line_bet_amount" value="" size="5">
+              </td> 
+              <td colspan="4">
+                <input type="checkbox" name="bet_type" value="Odds" id="odds"> 
+                <label for="odds">Odds: $</label>
+                <input type="text" name="odds_bet_amount" id="odds_bet_amount" value="" size="5">
+              </td> 
+            </tr>
+            <tr>
+              <td colspan="8">
+                <input type="checkbox" name="bet_type" value="Place" > Place Bet: $
+                <label for="place_bet_amount"></label>
+                <input type="text" name="place_bet_amount" id="place_bet_amount" value="" size="5">
+                <br>
+                <input type="checkbox" name="bet_type" value="4place" > 4
+                <label for="place_bet_number"></label>
+                <input type="checkbox" name="bet_type" value="5place" > 5
+                <label for="place_bet_number"></label>
+                <input type="checkbox" name="bet_type" value="6place" > 6
+                <label for="place_bet_number"></label>
+                <input type="checkbox" name="bet_type" value="8place" > 8
+                <label for="place_bet_number"></label>
+                <input type="checkbox" name="bet_type" value="9place" > 9
+                <label for="place_bet_number"></label>
+                <input type="checkbox" name="bet_type" value="10place" > 10
+                <label for="place_bet_number"></label>
+              </td> 
+            </tr>
+
+            </tr>
+            <tr>  
+              <td colspan="8">
+                <label for="hardway">Hardway: $</label>
+                <input type="text" name="hardway_bet_amount" id="hardway_bet_amount" value="1" size="2">
+                every <input type="number" name="hardway_interval" id="hardway_interval" value="10" min="1" max="100">
+                <br>
+
+                <input type="checkbox" name="hardway_bet" value="2hardway" id="2hardway"> 
+                <label for="2hardway">2 2</label>
+                <input type="checkbox" name="hardway_bet" value="3hardway" id="3hardway"> 
+                <label for="3hardway">3 3</label>
+                <br>
+                <input type="checkbox" name="hardway_bet" value="4hardway" id="4hardway"> 
+                <label for="4hardway">4 4</label>
+                <input type="checkbox" name="hardway_bet" value="5hardway" id="5hardway"> 
+                <label for="5hardway">5 5</label>
+              </td> 
+            </tr>
+
+          </tr>
+          <tr>  
+            <td colspan="8">
+              <input type="checkbox" name="bet_type" value="Field" id="field"> 
+              <label for="field">Field: $</label>
+              <input type="text" name="field_bet_amount" id="field_bet_amount" value="" size="5">
+            </td> 
+          </tr>
+          
+            <tr>
+              <th colspan="8" style="padding: 5px;">SET # OF ROUNDS, # OF PLAYS & BEGIN</th>  
+            </tr>
+            <tr>
+              <td colspan="8">
+                Rounds:
+                <input type="text" name="num_rounds" id="num_rounds" value="1" size="10">
+                <br>
+                Plays:
+                <input type="text" name="num_plays" id="num_plays" value="50" size="10">
+                <br>
+                <input type="button" name="submit" value="Begin >>" onclick="formSubmit()">
+              </td>  
+            </tr>
+            <tr>
+              <td colspan="8">
+                <textarea id="textResults" cols="90" rows="50"></textarea>
+              </td>  
+            </tr>
+          </tbody>
+        </table>
+      </form>  
+    </div>
+  </body>
+</html>
