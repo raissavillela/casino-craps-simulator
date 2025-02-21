@@ -13,21 +13,39 @@ class Dice {
 }
 
 class Bet {
-  constructor(type, amount) {
-      this.type = type;
-      this.amount = amount;
-  }
+    constructor(type, amount) {
+        this.type = type;
+        this.amount = amount;
+    }
   
-  calculatePayout(dice) {
-      const payouts = {
-          'Pass Line': (dice.result === 7 || dice.result === 11) ? this.amount * 2 : 0,
-          'Odds': {4: this.amount * 2, 10: this.amount * 2, 5: this.amount * 1.5, 9: this.amount * 1.5, 6: this.amount * 1.2, 8: this.amount * 1.2}[dice.result] || 0,
-          'Place': 0,  
-          'Hardway': 0 
-      };
-      return payouts[this.type] || 0;
-  }
-}
+    calculatePayout(dice, user) {
+        const result = dice.result;
+        if (this.type === 'Pass Line') {
+            if (!user.puck) {  // Come-out roll (no point established)
+                if (result === 7 || result === 11) {
+                    return this.amount * 2;  // Win on 7 or 11
+                } else if ([2, 3, 12].includes(result)) {
+                    return 0;  // Loss on 2, 3, or 12
+                } else {
+                    user.puck = true;  // Point established
+                    user.point = result;
+                    return 0;
+                }
+            } else {  // Point phase
+                if (result === 7) {
+                    user.puck = false;
+                    user.point = 0;
+                    return 0;  // Pass Line loses on 7 after point is established
+                } else if (result === user.point) {
+                    user.puck = false;
+                    user.point = 0;
+                    return this.amount * 2;  // Win on point
+                }
+            }
+        }
+        return 0;
+    }
+  }  
 
 class HardwayBet extends Bet {
   constructor(amount, selectedNumbers) {
@@ -71,7 +89,7 @@ class FieldBet extends Bet {
   calculatePayout(dice) {
       if (dice.result === 12 || dice.result === 2) {
           return this.amount * 2; 
-      } else if ([3, 4, 6, 8, 9, 10].includes(dice.result)) {
+      } else if ([3, 4, 9, 10, 11].includes(dice.result)) {
           return this.amount; 
       }
       return -this.amount;
@@ -79,23 +97,24 @@ class FieldBet extends Bet {
 }
 
 class User {
-  constructor(startingBankroll, walkAwayLimit, stopWhenDepleted) {
-      this.startingBankroll = startingBankroll;
-      this.currentBankroll = startingBankroll;
-      this.walkAwayLimit = walkAwayLimit;
-      this.stopWhenDepleted = stopWhenDepleted;
-      this.puck = false;
-  }
-
-  updateBankroll(amount) {
-      this.currentBankroll += amount;
-      this.currentBankroll = Math.round(this.currentBankroll);
-  }
-
-  checkBankroll() {
-      return this.currentBankroll <= 0 || (this.walkAwayLimit && this.currentBankroll >= this.walkAwayLimit);
-  }
-}
+    constructor(startingBankroll, walkAwayLimit, stopWhenDepleted) {
+        this.startingBankroll = startingBankroll;
+        this.currentBankroll = startingBankroll;
+        this.walkAwayLimit = walkAwayLimit;
+        this.stopWhenDepleted = stopWhenDepleted;
+        this.puck = false;  // Point not established at the start
+        this.point = 0;
+    }
+  
+    updateBankroll(amount) {
+        this.currentBankroll += amount;
+        this.currentBankroll = Math.round(this.currentBankroll);
+    }
+  
+    checkBankroll() {
+        return this.currentBankroll <= 0 || (this.walkAwayLimit && this.currentBankroll >= this.walkAwayLimit);
+    }
+  }  
 
 class PlaySimulation {
   constructor(user, rounds, playsPerRound, placeBetNumbers = [], placeBetAmount = 0, fieldBetAmount = 0) {
@@ -222,3 +241,4 @@ function formSubmit() {
   document.getElementById('textResults').value = results;
 }
 
+module.exports = { Dice, Bet, HardwayBet, PlaceBet, FieldBet, User, PlaySimulation };
