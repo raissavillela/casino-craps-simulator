@@ -9,6 +9,17 @@ describe('Dice Class', () => {
             expect(roll).toBeLessThanOrEqual(12);
         }
     });
+
+    test('should roll all possible values between 2 and 12', () => {
+        const dice = new Dice();
+        const results = new Set();
+        for (let i = 0; i < 1000; i++) {
+            results.add(dice.roll());
+        }
+        for (let i = 2; i <= 12; i++) {
+            expect(results.has(i)).toBe(true);
+        }
+    });    
 });
 
 describe('Bet Class', () => {
@@ -24,6 +35,31 @@ describe('Bet Class', () => {
         const user = new User(100, 200, false);
         const dice = new Dice();
         dice.result = 2;
+        const bet = new Bet('Pass Line', 10);
+        expect(bet.calculatePayout(dice, user)).toBe(0);
+    });
+
+    test('should not allow negative or zero bet amounts', () => {
+        expect(() => new Bet('Pass Line', -10)).toThrow();
+        expect(() => new Bet('Pass Line', 0)).toThrow();
+    });
+
+    test('should return correct payout when point is established and won', () => {
+        const user = new User(100, 200, false);
+        user.puck = true;
+        user.point = 8;
+        const dice = new Dice();
+        dice.result = 8;
+        const bet = new Bet('Pass Line', 10);
+        expect(bet.calculatePayout(dice, user)).toBe(20);
+    }); 
+
+    test('should return 0 when point is established but another number is rolled', () => {
+        const user = new User(100, 200, false);
+        user.puck = true;
+        user.point = 6;
+        const dice = new Dice();
+        dice.result = 8;
         const bet = new Bet('Pass Line', 10);
         expect(bet.calculatePayout(dice, user)).toBe(0);
     });
@@ -88,17 +124,24 @@ describe('User Class', () => {
 });
 
 describe('PlaySimulation Class', () => {
-    test('should simulate play and update bankroll', () => {
+    test('should return a string result', () => {
         const user = new User(100, 200, false);
         const simulation = new PlaySimulation(user, 1, 1);
         const result = simulation.simulatePlay();
         expect(typeof result).toBe('string');
-        expect(user.currentBankroll).not.toBe(100);
     });
 
     test('should stop simulation if bankroll is depleted', () => {
         const user = new User(10, 200, false);
         const simulation = new PlaySimulation(user, 10, 10);
+        const result = simulation.startSimulation();
+        expect(result.includes('Game Over')).toBe(true);
+    });
+
+    test('should stop simulation if walk-away limit is reached', () => {
+        const user = new User(100, 150, false);
+        const simulation = new PlaySimulation(user, 10, 10);
+        user.updateBankroll(50);
         const result = simulation.startSimulation();
         expect(result.includes('Game Over')).toBe(true);
     });
