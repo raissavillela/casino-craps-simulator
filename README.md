@@ -40,6 +40,49 @@ The Casino CRAPS Simulator is an interactive and realistic simulation of the cla
 
 **Field Bet**:  Wins on 2, 3, 4, 9, 10, 11, and 12, with 2 and 12 paying double, while all other winning numbers pay even money.
 
+
+### **Installation and Setup**
+To get started with the Casino CRAPS Simulator, follow these steps:
+
+1. **Install Dependencies**
+Ensure you have Node.js installed. Then, navigate to the project directory and run:
+
+```bash
+$ npm install
+```
+
+This will install all required dependencies listed in `package.json`.
+
+2. **Run the Simulator**
+To play the game, simply open `index.html` in a web browser.
+
+3. **Running Tests**
+This project includes automated tests to ensure correctness. The test file `craps-script.test.js` is used to validate game logic.
+
+*Before Running Tests
+
+Uncomment the following line in `script.js` to enable testing:
+
+```bash
+// module.exports = { Dice, Bet, HardwayBet, PlaceBet, FieldBet, User, PlaySimulation };
+```
+
+Change it to:
+
+```bash
+module.exports = { Dice, Bet, HardwayBet, PlaceBet, FieldBet, User, PlaySimulation };
+```
+
+Run the Tests
+
+Once the line is uncommented, execute the tests using:
+
+  ```bash
+$ npx jest
+  ```
+
+This will run all test cases and validate game functionality.
+
 ### **User Interface**
 
 The simulator features an interactive web-based interface where players can input their bankroll, place bets, and view game results in real time. The game runs automatically, displaying dice rolls and outcomes in an easy-to-read format.

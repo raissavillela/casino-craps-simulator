@@ -280,5 +280,5 @@ function formSubmit() {
     document.addEventListener("DOMContentLoaded", function() {});
 }    
 
-
+// Uncomment the following line to enable testing:
 // module.exports = { Dice, Bet, HardwayBet, PlaceBet, FieldBet, User, PlaySimulation };
