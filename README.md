@@ -7,7 +7,7 @@ The Casino CRAPS Simulator is an interactive and realistic simulation of the cla
 ### **Key Features**
 1. **Dice Rolling Simulation**: Randomly simulates the rolling of two six-sided dice, determining the outcome of each roll in the game.
 
-2. **Multiple Bet Types**: Supports Pass Line, Odds, Place, Hardway, and Field bets, each with distinct payout structures.
+2. **Multiple Bet Types**: Supports Pass Line, Place, Hardway, and Field bets, each with distinct payout structures.
 
 3. **Bankroll Management**: Tracks player balance, allows bankroll input, and supports customizable walk-away limits.
 
