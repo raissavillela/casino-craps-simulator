@@ -15,6 +15,7 @@ The Casino CRAPS Simulator is an interactive and realistic simulation of the cla
 
 5. **Customizable Settings**:  Player can set initial bankroll, number of rounds, and bet amounts to tailor their gameplay experience.
 
+
 ### **How to Play**
 1. **Come Out Roll**:    
    - A roll of 7 or 11 wins immediately.  
@@ -29,10 +30,9 @@ The Casino CRAPS Simulator is an interactive and realistic simulation of the cla
    - Winning bets increase the player's bankroll, while losing bets deduct from it. 
    - The game continues until the player reaches their walk-away limit or depletes their bankroll.
 
+
 ### **Bet Types and Payouts**
 **Pass Line Bet**: Wins on 7 or 11, loses on 2, 3, or 12, and establishes a point otherwise.
-
-**Odds Bet**: Pays out based on the established point (e.g., 2:1 for 4 and 10, 3:2 for 5 and 9, 6:5 for 6 and 8).
 
 **Place Bet**:  Bets on specific numbers with varied payouts (e.g., 9:5 for 4/10, 7:5 for 5/9, 7:6 for 6/8).
 
@@ -59,7 +59,7 @@ To play the game, simply open `index.html` in a web browser.
 3. **Running Tests**
 This project includes automated tests to ensure correctness. The test file `craps-script.test.js` is used to validate game logic.
 
-*Before Running Tests
+**Before Running Tests**
 
 Uncomment the following line in `script.js` to enable testing:
 
@@ -83,9 +83,11 @@ $ npx jest
 
 This will run all test cases and validate game functionality.
 
+
 ### **User Interface**
 
 The simulator features an interactive web-based interface where players can input their bankroll, place bets, and view game results in real time. The game runs automatically, displaying dice rolls and outcomes in an easy-to-read format.
+
 
 ### **Conclusion**
 

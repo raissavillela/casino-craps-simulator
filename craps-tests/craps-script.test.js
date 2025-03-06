@@ -63,6 +63,16 @@ describe('Bet Class', () => {
         const bet = new Bet('Pass Line', 10);
         expect(bet.calculatePayout(dice, user)).toBe(0);
     });
+
+    test('should win when point is hit after establishment', () => {
+        const user = new User(100, 200, false);
+        user.puck = true;
+        user.point = 5;
+        const dice = new Dice();
+        dice.result = 5;
+        const bet = new Bet('Pass Line', 10);
+        expect(bet.calculatePayout(dice, user)).toBe(20);
+    });
 });
 
 describe('HardwayBet Class', () => {
@@ -80,6 +90,15 @@ describe('HardwayBet Class', () => {
         dice.die1 = 2;
         dice.die2 = 3;
         dice.result = 5;
+        const bet = new HardwayBet(10, [4]);
+        expect(bet.calculatePayout(dice)).toBe(0);
+    });
+
+    test('should lose if non-doubles version of hardway number is rolled', () => {
+        const dice = new Dice();
+        dice.die1 = 3;
+        dice.die2 = 1;
+        dice.result = 4;
         const bet = new HardwayBet(10, [4]);
         expect(bet.calculatePayout(dice)).toBe(0);
     });

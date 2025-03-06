@@ -223,7 +223,7 @@ function formSubmit() {
     let isValid = true;
     const bets = [];
 
-    ['pass_line', 'odds'].forEach(type => {
+    ['pass_line'].forEach(type => {
         const checkbox = document.getElementById(type);
         const amountField = document.getElementById(`${type}_bet_amount`);
         let betAmount = parseInt(amountField.value) || 0;
